@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 // Analyze domain and return WHOIS, reputation, security, trustScore
 app.get("/analyze", async (req, res) => {
     const domain = req.query.domain;
-    if (!domain) {
+    if (!domain || domain === "localhost") {
         return res.status(400).json({ error: "Domain is required!" });
     }
 
