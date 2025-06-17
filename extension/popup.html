@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SecureSurf</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🔒 Secure Surf</h1>
+
+        <div class="section">
+            <p><strong>URL:</strong> <span id="url">Loading...</span></p>
+            <p><strong>Trust Score:</strong><span id="score" class="score">Loading...</span></p>
+            <div class="indicator-background" id="indicator-background"><span id="indicator" ></span></div>
+        </div>
+
+        <div class="section">
+            <h3>🚨 Threat Indicators</h3>
+            <ul class="indicators">
+                <li><strong>Phishing:</strong> <span id="phishing">Checking...</span></li>
+                <li><strong>Scam:</strong> <span id="scam">Checking...</span></li>
+                <li><strong>Spam:</strong> <span id="spam">Checking...</span></li>
+                <li><strong>Malware:</strong> <span id="malware">Checking...</span></li>
+                <li><strong>Safe Browsing:</strong> <span id="safeBrowsing">Checking...</span></li>
+            </ul>
+        </div>
+        <div>
+            <h3>For More Details Visit</h3>
+            <a href="http://localhost:3000">hunt.com</a>
+        </div>
+
+        <div class="section">
+            <h3>🔐 Privacy Alerts</h3>
+            <ul id="privacyAlerts" class="alerts"></ul>
+        </div>
+
+        <div class="section">
+            <h3>🛡️ Password Generator</h3>
+            <button id="generatePwd" class="btn">Generate Password</button>
+            <p id="password" class="password-output"></p>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
