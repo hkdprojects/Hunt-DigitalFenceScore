@@ -5,8 +5,7 @@ const cors = require("cors");
 const getWhoisData = require("./api/whois");
 const getReputationScore = require("./api/reputation");
 const getSecurityDetails = require("./api/security");
-const { calculateTrustScore } = require("./utils/scoreCalculator");
-const { isAdult } = require("./utils/scoreCalculator");
+const { calculateTrustScore, checkNonSafeDomain, isAdult } = require("./utils/scoreCalculator");
 
 require("dotenv").config();
 const app = express();
@@ -36,38 +35,44 @@ app.get("/analyze", async (req, res) => {
             getSecurityDetails(domain),
         ]);
 
-        //some intializations
-        let safe_Browsing = isAdult(domain) ? "No" : "Yes";
+        // Google Safe Browsing
+        const googleSafe = security?.data?.attributes?.last_analysis_results?.["Google Safebrowsing"]?.result;
 
-        let registrantPhone = whois.WhoisRecord.registrant?.telephone ?? "N/A";
-        let registrantEmail = whois.WhoisRecord.contactEmail || "N/A";
-        let authorcredntials = registrantEmail ? 1 : registrantPhone ? 1 : 0;
+        // Safe browsing logic (prefer Google, fallback to isAdult)
+        let safe_Browsing = "Unknown";
+        if (googleSafe) {
+            safe_Browsing = googleSafe === "clean" ? "Yes" : "No";
+        } else if (isAdult(domain)) {
+            safe_Browsing = "No";
+        } else {
+            safe_Browsing = "Yes";
+        }
 
-        if (security.data.attributes.last_https_certificate &&
-            security.data.attributes.last_https_certificate.subject
-        ) {
+        const registrantPhone = whois.WhoisRecord.registrant?.telephone ?? "N/A";
+        const registrantEmail = whois.WhoisRecord.contactEmail || "N/A";
+        const authorcredntials = registrantEmail ? 1 : registrantPhone ? 1 : 0;
 
+        let organization = "N/A";
+        if (security.data.attributes.last_https_certificate?.subject?.O) {
             organization = security.data.attributes.last_https_certificate.subject.O;
         } else if (whois.WhoisRecord?.administrativeContact?.organization) {
-            organization = whois.WhoisRecord?.administrativeContact?.organization ?? "N/A";
+            organization = whois.WhoisRecord.administrativeContact.organization;
         } else if (whois.WhoisRecord.domainName) {
-            organization = whois.WhoisRecord.domainName || "N/A"
-        } else {
-            organization = "N/A";
+            organization = whois.WhoisRecord.domainName;
         }
 
-        IP = whois.WhoisRecord.ips || "N/A";
+        const IP = whois.WhoisRecord.ips || "N/A";
+        const domainId = (organization || IP) ? 1 : 0;
 
-        if (organization || IP) {
-            domainId = 1;
-        } else {
-            domainId = 0;
-        }
+        // Get threat indicators from your own blocklist
+        const {
+            phishing: customPhishing,
+            scam: customScam,
+            spam: customSpam,
+            malware: customMalware
+        } = checkNonSafeDomain(domain);
 
-
-
-
-        // Extract needed values from responses
+        // Prepare input for scoring
         const props = {
             httpscertificate: security?.data?.attributes?.last_https_certificate?.cert_signature?.signature || "N/A",
             sslcertificate: security?.data?.attributes?.last_https_certificate?.serial_number || "N/A",
@@ -76,12 +81,11 @@ app.get("/analyze", async (req, res) => {
             webAge: calculateAge(whois?.WhoisRecord?.createdDateNormalized) || 0,
             reputation: reputation?.data?.attributes?.reputation || 0,
             alexaRank: security?.data?.attributes?.popularity_ranks?.Alexa?.rank || "N/A",
-            phishing: security?.data?.attributes?.last_analysis_results?.Phishtank?.result === "clean" ? "Not Found" : "Found",
-            scam: security?.data?.attributes?.last_analysis_results?.Scantitan?.result === "clean" ? "Not Found" : "Found",
-            spam: security?.data?.attributes?.last_analysis_results?.Spam404?.result === "clean" ? "Not Found" : "Found",
-            malware: security?.data?.attributes?.last_analysis_results?.Malwared?.result === "clean" ? "Not Found" : "Found",
-            safe_Browsing,
-
+            phishing: customPhishing,
+            scam: customScam,
+            spam: customSpam,
+            malware: customMalware,
+            safe_Browsing
         };
 
         const trustScore = calculateTrustScore(props);
@@ -96,7 +100,7 @@ app.get("/analyze", async (req, res) => {
             spam: props.spam,
             malware: props.malware,
             safe_Browsing,
-            domain,
+            domain
         });
     } catch (error) {
         console.error("Error fetching data:", error);
