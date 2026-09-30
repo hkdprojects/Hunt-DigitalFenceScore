@@ -592,7 +592,7 @@ async function getResult(domain) {
             }
 
             //spam
-            if (data.security.data.attributes.last_analysis_results.Spam404.result === "clean") {
+            if (data.security.data.attributes.last_analysis_results.Scantitan.result === "clean") {
                 spam = "Not Found";
             } else {
                 spam = "Found";
