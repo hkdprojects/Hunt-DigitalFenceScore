@@ -6,28 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
-    <title>hunt</title>
+    <title>SECURE SURF - Website Security Score Checker</title>
 </head>
 
 <body>
     <div class="headings">
         <div class="title">
-            <div class="indicator" id="indicator">
-                <div class="indicator-eyes">
-                    <div class="indicator-eye"></div>
-                    <div class="indicator-eye"></div>
-                </div>
-                <div class="expression-normal" id="expression"></div>
+            <div class="indicator-wrapper" id="indicator">
+                <!-- Default Shield Icon -->
+                <svg id="shield-icon" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="currentColor"
+                    class="bi bi-shield-check" viewBox="0 0 16 16">
+                    <path
+                        d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56" />
+                    <path id="shield-inner-path"
+                        d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0" />
+                </svg>
             </div>
+
             SECURE SURF
         </div>
     </div>
+
     <div class="search-container">
         <div class="search">
-            <input placeholder="Enter URL" type="text" id="search_content">
+            <input placeholder="Enter website URL (e.g., example.com)" type="text" id="search_content">
             <button type="submit" id="search_button">Go</button>
         </div>
     </div>
+
     <div id="search_result" class="search_result">
         <div class="results-summary-container" id="results-summary-container">
             <div class="results-summary-container__result">
@@ -85,9 +91,10 @@
         </div>
         <br />
 
-        <!--details-->
+        <!-- Details -->
         <div class="details" id="details">
             <details>
+                <summary class="details-main-summary">Detailed Security Metrics</summary>
                 <div class="detail-Inside">
                     <details>
                         <summary>Key facts</summary>
@@ -115,7 +122,7 @@
                                 <span id="organization" class="keyText"></span>
                             </div>
                             <div class="keyPoints">
-                                <span>OfficialW ebsite</span>
+                                <span>Official Website</span>
                                 <span id="officialWebsite" class="keyText"></span>
                             </div>
                             <div class="keyPoints">
@@ -134,14 +141,14 @@
                     </details>
 
                     <details>
-                        <summary>Who is</summary>
+                        <summary>Whois</summary>
                         <div class="detail-box">
                             <div class="keyPoints">
                                 <span>Name</span>
                                 <span id="websiteName" class="keyText"></span>
                             </div>
                             <div class="keyPoints">
-                                <span>Domain Extension</span><br>
+                                <span>Domain Extension</span>
                                 <span id="domainExtension" class="keyText"></span>
                             </div>
                             <div class="keyPoints">
@@ -166,8 +173,9 @@
                             </div>
                         </div>
                     </details>
+
                     <details>
-                        <summary>Security</summary>
+                        <summary>Security Analysis</summary>
                         <div class="detail-box">
                             <div class="keyPoints">
                                 <span>Malware</span>
@@ -191,15 +199,16 @@
                             </div>
                         </div>
                     </details>
+
                     <details>
-                        <summary>Registrant</summary>
+                        <summary>Registrant Info</summary>
                         <div class="detail-box">
                             <div class="keyPoints">
                                 <span>Name</span>
                                 <span id="registrantName" class="keyText"></span>
                             </div>
                             <div class="keyPoints">
-                                <span>Organization</span><br>
+                                <span>Organization</span>
                                 <span id="registrantOrganization" class="keyText"></span>
                             </div>
                             <div class="keyPoints">
@@ -215,7 +224,7 @@
                                 <span id="registrantCity" class="keyText"></span>
                             </div>
                             <div class="keyPoints">
-                                <span>Street<br></span>
+                                <span>Street</span>
                                 <span id="registrantStreet" class="keyText"></span>
                             </div>
                             <div class="keyPoints">
@@ -235,49 +244,47 @@
                 </div>
             </details>
         </div>
-        <!-- description -->
+
+        <!-- Description -->
         <details class="description-container">
-            <summary>Description</summary>
+            <summary>Analysis Description</summary>
             <div id="description-container" class="description"></div>
             <p class="declaration">Declaration</p>
             <p id="declaration" class="description"></p>
         </details>
     </div>
-    <!-- no result -->
-    <div class="" id="blank"></div>
-    <!-- Disclaimer -->
-    <div class="disclaimer" id="disclaimer">
-        <h4 class="disclaimer-heading">How you can Secure your self on the Internet</h4>
-        <li class="disclaimer-text">
-            Stay informed and browse safely by checking a website’s security status before sharing personal or
-            financial
-            information.
-        </li>
-        <li class="disclaimer-text">
-            Create complex passwords for each website and avoid using the same password across multiple platforms.
-            Use a
-            password manager if needed.
-        </li>
-        <li class="disclaimer-text">
-            Always ensure the website URL starts with https:// and has a padlock icon before entering personal or
-            financial details.
-        </li>
-        <li class="disclaimer-text">
-            Hunt is a free service that provides information about websites, including the trust score, domain age,
-            and
-            other details that help you stay safe online.
-        </li>
-        <li class="disclaimer-text">
-            Hunt is not responsible for any incorrect information or misuse of the information provided.
-        </li>
-        <h4 class="disclaimer-heading">Expression and color of the Above smile</h4>
-        <li class="disclaimer-text emoji-info" style="color: rgb(253, 54, 54);">Red - Not safe harmFull</li>
-        <li class="disclaimer-text emoji-info" style="color: orange;">Orange - Not safe can be harm</li>
-        <li class="disclaimer-text emoji-info" style="color: yellow;">Yellow - not safe harmless</li>
-        <li class="disclaimer-text emoji-info" style="color: rgb(187, 255, 50);">Green Yellow - moderate safe </li>
-        <li class="disclaimer-text emoji-info" style="color: rgb(4, 255, 4);">99% Safe </li>
 
+    <!-- Error Div -->
+    <div id="blank"></div>
+
+    <!-- Disclaimer & Score Legend -->
+    <div class="disclaimer" id="disclaimer">
+        <h4 class="disclaimer-heading">Score & Indicator</h4>
+        <div class="legend-bar">
+            <span class="legend-badge badge-bad">🔴 &lt;50 Not Safe</span>
+            <span class="legend-badge badge-less">🟠 50-64 Less Secure</span>
+            <span class="legend-badge badge-moderate">🟡 65-74 Moderate</span>
+            <span class="legend-badge badge-good">🟢 75-79 Not Fully Safe</span>
+            <span class="legend-badge badge-verygood">🟢 80+ Safe</span>
+        </div>
+
+        <h4 class="disclaimer-heading">How to Stay Safe Online</h4>
+        <div class="safety-grid">
+            <div class="safety-card">
+                <h5>Verify Status</h5>
+                <p>Check a website’s security status before sharing any personal or financial information.</p>
+            </div>
+            <div class="safety-card">
+                <h5>Password Hygiene</h5>
+                <p>Use complex, unique passwords for every site. Use a reliable password manager if needed.</p>
+            </div>
+            <div class="safety-card">
+                <h5>HTTPS & Padlock</h5>
+                <p>Ensure the URL starts with https:// and shows a lock icon before entering credentials.</p>
+            </div>
+        </div>
     </div>
+
     <div id="background" class="background">
         <section class="dots-container" id="loading">
             <div class="dot"></div>
@@ -287,6 +294,7 @@
             <div class="dot"></div>
         </section>
     </div>
+
     <script src="script.js"></script>
 </body>
 
