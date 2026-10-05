@@ -2,38 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SecureSurf</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="popupStyles.css">
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">🔒 Secure Surf</h1>
-
-        <div class="section">
-            <p><strong>URL:</strong> <span id="url">Loading...</span></p>
-            <p><strong>Trust Score:</strong> <span id="score" class="score">Loading...</span></p>
-            <div class="indicator-background" id="indicator-background"><span id="indicator"></span></div>
+    <div class="popup-card">
+        <!-- Header -->
+        <div class="header">
+            <div class="brand">
+                <svg class="brand-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <h2>SecureSurf</h2>
+            </div>
+            <span class="active-dot" title="Extension Active"></span>
         </div>
 
-        <div class="section">
-            <h3>🚨 Threat Indicators</h3>
-            <ul class="indicators">
-                <li><strong>Phishing:</strong> <span id="phishing">Checking...</span></li>
-                <li><strong>Scam:</strong> <span id="scam">Checking...</span></li>
-                <li><strong>Spam:</strong> <span id="spam">Checking...</span></li>
-                <li><strong>Malware:</strong> <span id="malware">Checking...</span></li>
-                <li><strong>Safe Browsing:</strong> <span id="safeBrowsing">Checking...</span></li>
-            </ul>
-        </div>
-        <div>
-            <h3>For More Details Visit</h3>
-            <a href="http://localhost:3000" target="_blank">hunt.com</a>
+        <!-- URL Container -->
+        <div class="url-strip">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            <span id="url" class="domain-text">Loading...</span>
         </div>
 
-        <div class="section">
-            <h3>🔐 Privacy Alerts</h3>
-            <ul id="privacyAlerts" class="alerts"></ul>
+        <!-- Trust Score Meter Section -->
+        <div class="score-card">
+            <div class="score-ring-container">
+                <div class="score-value" id="score">--</div>
+                <div class="score-label">TRUST SCORE</div>
+            </div>
+            <div class="status-badge" id="indicator-background">
+                <span id="indicator">Analyzing...</span>
+            </div>
         </div>
+
+        <!-- Threat Indicators Grid -->
+        <div class="section-container">
+            <div class="section-title">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span>Threat Indicators</span>
+            </div>
+            <div class="threat-grid">
+                <div class="threat-item">
+                    <span>Phishing</span>
+                    <span id="phishing" class="pill pending">Checking</span>
+                </div>
+                <div class="threat-item">
+                    <span>Scam</span>
+                    <span id="scam" class="pill pending">Checking</span>
+                </div>
+                <div class="threat-item">
+                    <span>Spam</span>
+                    <span id="spam" class="pill pending">Checking</span>
+                </div>
+                <div class="threat-item">
+                    <span>Malware</span>
+                    <span id="malware" class="pill pending">Checking</span>
+                </div>
+                <div class="threat-item full-width">
+                    <span>Safe Browsing</span>
+                    <span id="safeBrowsing" class="pill pending">Checking</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Alerts Section -->
+        <div class="section-container">
+            <div class="section-title">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>Privacy Guard</span>
+            </div>
+            <ul id="privacyAlerts" class="privacy-list"></ul>
+        </div>
+
+        <!-- Dashboard Link CTA Button -->
+        <a href="http://localhost:3000" target="_blank" class="dashboard-btn">
+            <span>Open Detailed Analytics</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
     </div>
     <script src="popup.js"></script>
 </body>
