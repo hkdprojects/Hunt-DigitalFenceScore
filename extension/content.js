@@ -17,7 +17,7 @@
             badgeColor = "#eab308"; // Caution (Yellow)
             statusText = "Moderate Risk";
         } else if (score < 80) {
-            badgeColor = "#99ff00"; // Fair
+            badgeColor = "#5b8d10"; // Fair
             statusText = "Fairly Safe";
         }
 
@@ -113,7 +113,6 @@
         // Toast HTML Content Construction
         const toast = document.createElement("div");
         toast.className = "toast";
-
         toast.innerHTML = `
             <div class="header">
                 <span class="brand">🛡️ SecureSurf</span>
@@ -128,6 +127,7 @@
                 <div class="threat-item"><span class="threat-label">Scam</span><span class="threat-val">${escapeHTML(data.scam || "-")}</span></div>
                 <div class="threat-item"><span class="threat-label">Spam</span><span class="threat-val">${escapeHTML(data.spam || "-")}</span></div>
                 <div class="threat-item"><span class="threat-label">Malware</span><span class="threat-val">${escapeHTML(data.malware || "-")}</span></div>
+                <div class="threat-item"><span class="threat-label">Safe Browsing</span><span class="threat-val">${escapeHTML(data.safe_Browsing || "-")}</span></div>
             </div>
         `;
 
@@ -169,6 +169,8 @@
         }
 
         const data = response.data;
+        console.log(data);
+        
         showSecureSurfAlert(domain, data, data.trustScore ?? 0);
     });
 
